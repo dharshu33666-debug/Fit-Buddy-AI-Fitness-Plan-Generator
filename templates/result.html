@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>FitBuddy - Your Fitness Plan</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f1f7f5;
+
+            color: #183b35;
+        }
+
+
+        /* HEADER */
+
+        .header {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #123d35,
+                    #087f62
+                );
+
+            color: white;
+
+            padding: 35px 20px;
+
+            text-align: center;
+        }
+
+
+        .header h1 {
+
+            margin: 0;
+
+            font-size: 34px;
+        }
+
+
+        .header p {
+
+            margin: 10px 0 0;
+
+            color: #d8fff3;
+        }
+
+
+        /* CONTAINER */
+
+        .container {
+
+            width: 92%;
+
+            max-width: 1100px;
+
+            margin: 35px auto;
+        }
+
+
+        /* PROFILE */
+
+        .profile-card {
+
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 18px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 6px 20px
+                rgba(0,0,0,0.08);
+        }
+
+
+        .profile-card h2 {
+
+            margin-top: 0;
+
+            color: #087f62;
+        }
+
+
+        .profile-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 15px;
+        }
+
+
+        .profile-item {
+
+            background: #eefaf6;
+
+            padding: 15px;
+
+            border-radius: 10px;
+        }
+
+
+        .profile-label {
+
+            font-size: 12px;
+
+            color: #71817d;
+
+            margin-bottom: 5px;
+        }
+
+
+        .profile-value {
+
+            font-weight: bold;
+
+            font-size: 16px;
+        }
+
+
+        /* AI GRID */
+
+        .ai-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 25px;
+        }
+
+
+        .card {
+
+            background: white;
+
+            padding: 28px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 6px 20px
+                rgba(0,0,0,0.08);
+        }
+
+
+        .card h2 {
+
+            margin-top: 0;
+        }
+
+
+        .workout-title {
+
+            color: #087f62;
+        }
+
+
+        .nutrition-title {
+
+            color: #d98200;
+        }
+
+
+        .ai-content {
+
+            white-space: pre-wrap;
+
+            line-height: 1.8;
+
+            font-size: 16px;
+
+            color: #344c47;
+        }
+
+
+        /* REMINDERS */
+
+        .reminders {
+
+            margin-top: 25px;
+        }
+
+
+        .reminder {
+
+            padding: 15px;
+
+            margin: 12px 0;
+
+            background: #fff8eb;
+
+            border-radius: 10px;
+        }
+
+
+        /* FEEDBACK */
+
+        .feedback {
+
+            margin-top: 25px;
+        }
+
+
+        textarea {
+
+            width: 100%;
+
+            min-height: 130px;
+
+            padding: 15px;
+
+            border:
+                1px solid #d0dfdb;
+
+            border-radius: 12px;
+
+            font-size: 15px;
+
+            font-family: Arial;
+
+            resize: vertical;
+
+            outline: none;
+        }
+
+
+        textarea:focus {
+
+            border-color: #14b889;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(20,184,137,0.12);
+        }
+
+
+        /* BUTTONS */
+
+        .button {
+
+            display: block;
+
+            width: 100%;
+
+            padding: 14px;
+
+            margin-top: 15px;
+
+            border: none;
+
+            border-radius: 30px;
+
+            text-align: center;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #20c997,
+                    #079f77
+                );
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            text-decoration: none;
+
+            cursor: pointer;
+        }
+
+
+        .button:hover {
+
+            opacity: 0.9;
+        }
+
+
+        .dashboard-button {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #6f42c1,
+                    #8e5de7
+                );
+        }
+
+
+        .home-button {
+
+            background:
+                #ffffff;
+
+            color: #087f62;
+
+            border:
+                2px solid #087f62;
+        }
+
+
+        /* RESPONSIVE */
+
+        @media (max-width: 850px) {
+
+            .ai-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+            .profile-grid {
+
+                grid-template-columns:
+                    1fr 1fr;
+            }
+        }
+
+
+        @media (max-width: 550px) {
+
+            .profile-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+
+                font-size: 28px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- HEADER -->
+
+<div class="header">
+
+    <h1>
+        💪 Your FitBuddy Plan
+    </h1>
+
+    <p>
+        Your personalized AI-powered fitness journey
+    </p>
+
+</div>
+
+
+
+<div class="container">
+
+
+    <!-- PROFILE -->
+
+    <div class="profile-card">
+
+        <h2>
+            👤 Your Profile
+        </h2>
+
+
+        <div class="profile-grid">
+
+
+            <div class="profile-item">
+
+                <div class="profile-label">
+                    Name
+                </div>
+
+                <div class="profile-value">
+                    {{ name }}
+                </div>
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <div class="profile-label">
+                    User ID
+                </div>
+
+                <div class="profile-value">
+                    {{ user_id }}
+                </div>
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <div class="profile-label">
+                    Age
+                </div>
+
+                <div class="profile-value">
+                    {{ age }}
+                </div>
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <div class="profile-label">
+                    Weight
+                </div>
+
+                <div class="profile-value">
+                    {{ weight }} kg
+                </div>
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <div class="profile-label">
+                    Fitness Goal
+                </div>
+
+                <div class="profile-value">
+                    {{ fitness_goal }}
+                </div>
+
+            </div>
+
+
+            <div class="profile-item">
+
+                <div class="profile-label">
+                    Intensity
+                </div>
+
+                <div class="profile-value">
+                    {{ intensity }}
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- AI RESULTS -->
+
+    <div class="ai-grid">
+
+
+        <!-- WORKOUT -->
+
+        <div class="card">
+
+            <h2 class="workout-title">
+                🏋️ 7-Day Workout Plan
+            </h2>
+
+            <div class="ai-content">
+                {{ workout_plan }}
+            </div>
+
+        </div>
+
+
+
+        <!-- NUTRITION -->
+
+        {% if nutrition_tip %}
+
+        <div class="card">
+
+            <h2 class="nutrition-title">
+                🥗 Nutrition & Recovery
+            </h2>
+
+            <div class="ai-content">
+                {{ nutrition_tip }}
+            </div>
+
+        </div>
+
+        {% endif %}
+
+
+    </div>
+
+
+
+    <!-- REMINDERS -->
+
+    <div class="card reminders">
+
+        <h2>
+            🌟 Daily Fitness Reminders
+        </h2>
+
+
+        <div class="reminder">
+
+            💧 <strong>Stay Hydrated</strong>
+
+            <br>
+
+            Drink water regularly throughout the day.
+
+        </div>
+
+
+        <div class="reminder">
+
+            😴 <strong>Recovery & Sleep</strong>
+
+            <br>
+
+            Give your body enough rest and recovery time.
+
+        </div>
+
+
+        <div class="reminder">
+
+            🚶 <strong>Stay Active</strong>
+
+            <br>
+
+            Add light movement and walking throughout the day.
+
+        </div>
+
+    </div>
+
+
+
+    <!-- FEEDBACK -->
+
+    <div class="card feedback">
+
+        <h2>
+            🤖 Customize Your Workout
+        </h2>
+
+
+        <p>
+
+            Tell FitBuddy what you want to change.
+            AI will create an updated workout plan.
+
+        </p>
+
+
+        <form
+            action="/submit-feedback"
+            method="post"
+        >
+
+            <input
+                type="hidden"
+                name="user_id"
+                value="{{ user_id }}"
+            >
+
+
+            <textarea
+                name="feedback"
+                placeholder="Example: Make the workout easier, add more walking, reduce leg exercises..."
+                required
+            ></textarea>
+
+
+            <button
+                type="submit"
+                class="button"
+            >
+                🤖 Update My Workout Plan
+            </button>
+
+        </form>
+
+    </div>
+
+
+
+    <!-- DASHBOARD -->
+
+    <a
+        href="/dashboard"
+        class="button dashboard-button"
+    >
+        📊 View My Progress Dashboard
+    </a>
+
+
+
+    <!-- HOME -->
+
+    <a
+        href="/"
+        class="button home-button"
+    >
+        ← Create Another Fitness Plan
+    </a>
+
+
+</div>
+
+
+</body>
+
+</html>

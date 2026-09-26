@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FitBuddy - AI Fitness Coach</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #eef7f4;
+            color: #173b35;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: flex;
+        }
+
+        /* =========================
+           LEFT IMAGE SECTION
+        ========================== */
+
+        .hero {
+            width: 55%;
+            min-height: 100vh;
+
+            background-image:
+                linear-gradient(
+                    rgba(0, 30, 25, 0.45),
+                    rgba(0, 30, 25, 0.65)
+                ),
+                url("/static/fitness.jpg");
+
+            background-size: cover;
+            background-position: center;
+
+            display: flex;
+            align-items: center;
+
+            padding: 60px;
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .logo {
+            font-size: 38px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .logo span {
+            color: #20d49b;
+        }
+
+        .tagline {
+            font-size: 18px;
+            margin-bottom: 60px;
+            color: #d9fff3;
+        }
+
+        .hero h1 {
+            font-size: 55px;
+            line-height: 1.1;
+            margin: 0 0 25px 0;
+        }
+
+        .hero h1 span {
+            color: #20d49b;
+        }
+
+        .hero p {
+            font-size: 19px;
+            line-height: 1.6;
+            max-width: 520px;
+        }
+
+        .features {
+            display: flex;
+            gap: 35px;
+            margin-top: 50px;
+            flex-wrap: wrap;
+        }
+
+        .feature {
+            text-align: center;
+            min-width: 90px;
+        }
+
+        .feature-icon {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .feature-text {
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           RIGHT FORM SECTION
+        ========================== */
+
+        .form-section {
+            width: 45%;
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 35px;
+        }
+
+        .form-card {
+            width: 100%;
+            max-width: 550px;
+
+            background: white;
+
+            padding: 38px;
+
+            border-radius: 25px;
+
+            box-shadow:
+                0 15px 45px rgba(0, 0, 0, 0.12);
+        }
+
+        .form-logo {
+            text-align: center;
+            font-size: 38px;
+            margin-bottom: 8px;
+        }
+
+        .form-logo span {
+            color: #13b887;
+        }
+
+        .form-subtitle {
+            text-align: center;
+            color: #71817d;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           INPUTS
+        ========================== */
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 7px;
+            color: #24453f;
+        }
+
+        input,
+        select {
+
+            width: 100%;
+
+            padding: 14px 15px;
+
+            margin-bottom: 18px;
+
+            border: 1px solid #d4e2df;
+
+            border-radius: 10px;
+
+            font-size: 15px;
+
+            background: #fbfefd;
+
+            outline: none;
+        }
+
+        input:focus,
+        select:focus {
+
+            border-color: #20c997;
+
+            box-shadow:
+                0 0 0 3px rgba(32, 201, 151, 0.12);
+        }
+
+
+        /* =========================
+           BUTTON
+        ========================== */
+
+        .generate-btn {
+
+            width: 100%;
+
+            padding: 15px;
+
+            border: none;
+
+            border-radius: 30px;
+
+            background: linear-gradient(
+                90deg,
+                #24cfa0,
+                #0db887
+            );
+
+            color: white;
+
+            font-size: 17px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            margin-top: 8px;
+
+            transition: 0.2s;
+        }
+
+        .generate-btn:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 8px 20px rgba(13, 184, 135, 0.25);
+        }
+
+
+        /* =========================
+           USERS LINK
+        ========================== */
+
+        .users-link {
+
+            display: block;
+
+            text-align: center;
+
+            margin-top: 22px;
+
+            color: #0ca77d;
+
+            text-decoration: none;
+
+            font-weight: bold;
+        }
+
+        .users-link:hover {
+            text-decoration: underline;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================== */
+
+        @media (max-width: 900px) {
+
+            .page {
+                flex-direction: column;
+            }
+
+            .hero {
+                width: 100%;
+                min-height: 500px;
+                padding: 40px 25px;
+            }
+
+            .form-section {
+                width: 100%;
+                min-height: auto;
+                padding: 25px;
+            }
+
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            .features {
+                margin-top: 30px;
+                gap: 20px;
+            }
+        }
+
+
+        @media (max-width: 500px) {
+
+            .hero {
+                min-height: 430px;
+            }
+
+            .hero h1 {
+                font-size: 34px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .form-card {
+                padding: 25px 20px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="page">
+
+
+    <!-- =================================
+         LEFT SIDE
+    ================================== -->
+
+    <section class="hero">
+
+        <div class="hero-content">
+
+            <div class="logo">
+                Fit<span>Buddy</span>
+            </div>
+
+            <div class="tagline">
+                Your Personal AI Fitness Coach
+            </div>
+
+
+            <h1>
+                Your Goals.<br>
+                Your Plan.<br>
+                <span>A Healthier You.</span>
+            </h1>
+
+
+            <p>
+                Personalized workout plans, nutrition guidance
+                and smart fitness support — all powered by AI.
+            </p>
+
+
+            <div class="features">
+
+                <div class="feature">
+
+                    <div class="feature-icon">
+                        🏋️
+                    </div>
+
+                    <div class="feature-text">
+                        Custom<br>
+                        Workouts
+                    </div>
+
+                </div>
+
+
+                <div class="feature">
+
+                    <div class="feature-icon">
+                        🥗
+                    </div>
+
+                    <div class="feature-text">
+                        Nutrition<br>
+                        Guidance
+                    </div>
+
+                </div>
+
+
+                <div class="feature">
+
+                    <div class="feature-icon">
+                        🤖
+                    </div>
+
+                    <div class="feature-text">
+                        AI<br>
+                        Coach
+                    </div>
+
+                </div>
+
+
+                <div class="feature">
+
+                    <div class="feature-icon">
+                        📊
+                    </div>
+
+                    <div class="feature-text">
+                        Track<br>
+                        Progress
+                    </div>
+
+                </div>
+
+
+                <div class="feature">
+
+                    <div class="feature-icon">
+                        ❤️
+                    </div>
+
+                    <div class="feature-text">
+                        Healthy<br>
+                        Habits
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================
+         RIGHT SIDE
+    ================================== -->
+
+    <section class="form-section">
+
+        <div class="form-card">
+
+
+            <div class="form-logo">
+                Welcome to <span>FitBuddy</span>
+            </div>
+
+
+            <div class="form-subtitle">
+
+                Let's get to know you better to create
+                your personalized fitness plan.
+
+            </div>
+
+
+
+            <!-- FORM -->
+
+            <form
+                action="/generate-workout"
+                method="post"
+            >
+
+
+                <!-- NAME -->
+
+                <label for="name">
+                    Name
+                </label>
+
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Enter your name"
+                    required
+                >
+
+
+
+                <!-- USER ID -->
+
+                <label for="user_id">
+                    User ID
+                </label>
+
+                <input
+                    type="text"
+                    id="user_id"
+                    name="user_id"
+                    placeholder="Enter your User ID"
+                    required
+                >
+
+
+
+                <!-- AGE -->
+
+                <label for="age">
+                    Age
+                </label>
+
+                <input
+                    type="number"
+                    id="age"
+                    name="age"
+                    placeholder="Enter your age"
+                    min="1"
+                    max="120"
+                    required
+                >
+
+
+
+                <!-- WEIGHT -->
+
+                <label for="weight">
+                    Weight (kg)
+                </label>
+
+                <input
+                    type="number"
+                    id="weight"
+                    name="weight"
+                    placeholder="Enter your weight"
+                    step="0.1"
+                    min="1"
+                    required
+                >
+
+
+
+                <!-- FITNESS GOAL -->
+
+                <label for="fitness_goal">
+                    Fitness Goal
+                </label>
+
+                <select
+                    id="fitness_goal"
+                    name="fitness_goal"
+                    required
+                >
+
+                    <option value="">
+                        Select your goal
+                    </option>
+
+                    <option value="Weight Loss">
+                        Weight Loss
+                    </option>
+
+                    <option value="Muscle Gain">
+                        Muscle Gain
+                    </option>
+
+                    <option value="General Fitness">
+                        General Fitness
+                    </option>
+
+                </select>
+
+
+
+                <!-- INTENSITY -->
+
+                <label for="intensity">
+                    Intensity
+                </label>
+
+                <select
+                    id="intensity"
+                    name="intensity"
+                    required
+                >
+
+                    <option value="">
+                        Select intensity level
+                    </option>
+
+                    <option value="Low">
+                        Low
+                    </option>
+
+                    <option value="Medium">
+                        Medium
+                    </option>
+
+                    <option value="High">
+                        High
+                    </option>
+
+                </select>
+
+
+
+                <!-- GENERATE BUTTON -->
+
+                <button
+                    type="submit"
+                    class="generate-btn"
+                >
+                    ➜ &nbsp; Generate My Fitness Plan
+                </button>
+
+
+            </form>
+
+
+
+            <!-- USERS -->
+
+            <a
+                href="/all-users"
+                class="users-link"
+            >
+                View All Users
+            </a>
+
+
+        </div>
+
+    </section>
+
+
+</div>
+
+</body>
+
+</html>

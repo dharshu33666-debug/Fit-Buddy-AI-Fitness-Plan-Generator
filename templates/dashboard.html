@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>FitBuddy - Progress Dashboard</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            font-family: Arial, sans-serif;
+
+            background: #f1f7f5;
+
+            color: #183b35;
+        }
+
+
+        .header {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #123d35,
+                    #087f62
+                );
+
+            color: white;
+
+            padding: 35px 20px;
+
+            text-align: center;
+        }
+
+
+        .header h1 {
+
+            margin: 0;
+
+            font-size: 34px;
+        }
+
+
+        .header p {
+
+            margin-top: 10px;
+
+            color: #d8fff3;
+        }
+
+
+        .container {
+
+            width: 92%;
+
+            max-width: 1100px;
+
+            margin: 35px auto;
+        }
+
+
+        /* STAT CARDS */
+
+        .stats {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 20px;
+
+            margin-bottom: 25px;
+        }
+
+
+        .stat-card {
+
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 18px;
+
+            text-align: center;
+
+            box-shadow:
+                0 6px 20px
+                rgba(0,0,0,0.08);
+        }
+
+
+        .stat-icon {
+
+            font-size: 32px;
+        }
+
+
+        .stat-number {
+
+            font-size: 30px;
+
+            font-weight: bold;
+
+            color: #087f62;
+
+            margin-top: 8px;
+        }
+
+
+        .stat-label {
+
+            color: #71817d;
+
+            margin-top: 8px;
+
+            font-size: 14px;
+        }
+
+
+        /* GRID */
+
+        .grid {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 25px;
+        }
+
+
+        .card {
+
+            background: white;
+
+            padding: 28px;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 6px 20px
+                rgba(0,0,0,0.08);
+        }
+
+
+        .card h2 {
+
+            margin-top: 0;
+
+            color: #087f62;
+        }
+
+
+        /* PROGRESS */
+
+        .progress-bar {
+
+            width: 100%;
+
+            height: 20px;
+
+            background: #e3eeeb;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            margin-top: 25px;
+        }
+
+
+        .progress-fill {
+
+            width: {{ progress }}%;
+
+            height: 100%;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #20c997,
+                    #079f77
+                );
+
+            border-radius: 20px;
+        }
+
+
+        .progress-text {
+
+            text-align: right;
+
+            color: #087f62;
+
+            font-weight: bold;
+
+            margin-top: 8px;
+        }
+
+
+        /* WEEK */
+
+        .week {
+
+            display: flex;
+
+            gap: 8px;
+
+            margin-top: 25px;
+        }
+
+
+        .day {
+
+            flex: 1;
+
+            text-align: center;
+
+            padding: 12px 5px;
+
+            border-radius: 10px;
+
+            background: #e9f4f1;
+
+            font-size: 13px;
+        }
+
+
+        .day.completed {
+
+            background: #20c997;
+
+            color: white;
+        }
+
+
+        .check {
+
+            display: block;
+
+            font-size: 20px;
+
+            margin-top: 5px;
+        }
+
+
+        /* STREAK */
+
+        .streak {
+
+            text-align: center;
+
+            padding: 20px;
+        }
+
+
+        .fire {
+
+            font-size: 65px;
+        }
+
+
+        .streak-number {
+
+            font-size: 45px;
+
+            font-weight: bold;
+
+            color: #e67e22;
+        }
+
+
+        .streak-text {
+
+            color: #71817d;
+
+            margin-top: 8px;
+        }
+
+
+        /* ACHIEVEMENT */
+
+        .achievement {
+
+            padding: 15px;
+
+            margin: 12px 0;
+
+            background: #eefaf6;
+
+            border-radius: 12px;
+
+            font-weight: bold;
+        }
+
+
+        /* MOTIVATION */
+
+        .motivation {
+
+            text-align: center;
+
+            font-size: 19px;
+
+            line-height: 1.7;
+        }
+
+
+        /* BUTTON */
+
+        .button {
+
+            display: block;
+
+            width: 100%;
+
+            padding: 15px;
+
+            margin-top: 25px;
+
+            border-radius: 30px;
+
+            text-align: center;
+
+            text-decoration: none;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #20c997,
+                    #079f77
+                );
+
+            color: white;
+
+            font-weight: bold;
+        }
+
+
+        /* RESPONSIVE */
+
+        @media (max-width: 850px) {
+
+            .stats {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+
+            .grid {
+
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            .stats {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .week {
+
+                gap: 3px;
+            }
+
+
+            .day {
+
+                font-size: 10px;
+
+                padding: 9px 2px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="header">
+
+    <h1>
+        📊 My Fitness Dashboard
+    </h1>
+
+    <p>
+        Track your fitness journey with FitBuddy
+    </p>
+
+</div>
+
+
+
+<div class="container">
+
+
+    <!-- STATS -->
+
+    <div class="stats">
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                🔥
+            </div>
+
+            <div class="stat-number">
+                {{ streak }}
+            </div>
+
+            <div class="stat-label">
+                Day Streak
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                💪
+            </div>
+
+            <div class="stat-number">
+                {{ completed_workouts }}
+            </div>
+
+            <div class="stat-label">
+                Workouts Completed
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                🎯
+            </div>
+
+            <div class="stat-number">
+                {{ weekly_goal }}
+            </div>
+
+            <div class="stat-label">
+                Weekly Goal
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                ⭐
+            </div>
+
+            <div class="stat-number">
+                {{ progress }}%
+            </div>
+
+            <div class="stat-label">
+                Progress
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- MAIN GRID -->
+
+    <div class="grid">
+
+
+        <!-- WEEKLY GOAL -->
+
+        <div class="card">
+
+            <h2>
+                🎯 Weekly Goal
+            </h2>
+
+            <p>
+                Keep going! You are making progress
+                toward your weekly workout goal.
+            </p>
+
+
+            <div class="progress-bar">
+
+                <div class="progress-fill"></div>
+
+            </div>
+
+
+            <div class="progress-text">
+
+                {{ progress }}% completed
+
+            </div>
+
+
+            <div class="week">
+
+
+                <div class="day completed">
+
+                    Mon
+
+                    <span class="check">
+                        ✓
+                    </span>
+
+                </div>
+
+
+                <div class="day completed">
+
+                    Tue
+
+                    <span class="check">
+                        ✓
+                    </span>
+
+                </div>
+
+
+                <div class="day completed">
+
+                    Wed
+
+                    <span class="check">
+                        ✓
+                    </span>
+
+                </div>
+
+
+                <div class="day completed">
+
+                    Thu
+
+                    <span class="check">
+                        ✓
+                    </span>
+
+                </div>
+
+
+                <div class="day completed">
+
+                    Fri
+
+                    <span class="check">
+                        ✓
+                    </span>
+
+                </div>
+
+
+                <div class="day">
+
+                    Sat
+
+                    <span class="check">
+                        ○
+                    </span>
+
+                </div>
+
+
+                <div class="day">
+
+                    Sun
+
+                    <span class="check">
+                        ○
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- STREAK -->
+
+        <div class="card">
+
+            <h2>
+                🔥 Daily Streak
+            </h2>
+
+
+            <div class="streak">
+
+                <div class="fire">
+                    🔥
+                </div>
+
+
+                <div class="streak-number">
+
+                    {{ streak }} Days
+
+                </div>
+
+
+                <div class="streak-text">
+
+                    Keep your streak alive!
+
+                </div>
+
+            </div>
+
+
+            <p style="text-align:center;">
+
+                Complete today's workout to
+                continue your streak.
+
+            </p>
+
+        </div>
+
+
+
+        <!-- ACHIEVEMENTS -->
+
+        <div class="card">
+
+            <h2>
+                🏆 Achievements
+            </h2>
+
+
+            {% for achievement in achievements %}
+
+            <div class="achievement">
+
+                {{ achievement }}
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+
+
+        <!-- MOTIVATION -->
+
+        <div class="card">
+
+            <h2>
+                🌟 Today's Motivation
+            </h2>
+
+
+            <div class="motivation">
+
+                “Small steps every day
+                lead to big results.”
+
+                <br><br>
+
+                💪 Stay consistent.<br>
+
+                🥗 Eat well.<br>
+
+                😴 Recover well.<br>
+
+                🔥 Keep moving!
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <a
+        href="/"
+        class="button"
+    >
+        ← Back to FitBuddy
+    </a>
+
+
+</div>
+
+
+</body>
+
+</html>
