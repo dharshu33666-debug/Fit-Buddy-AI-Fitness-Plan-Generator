@@ -167,9 +167,7 @@ The `.env` file is excluded from Git using `.gitignore`.
 - 🥗 Advanced nutrition tracking
 - 📱 Improved mobile UI
 
-## Author
 
-**Dharshini**
 
 GitHub:
 
